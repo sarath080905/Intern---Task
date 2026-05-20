@@ -1,0 +1,3 @@
+# Root requirements for the repository
+# Use this file to install backend dependencies directly.
+-r backend/requirements.txt
