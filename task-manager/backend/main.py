@@ -19,16 +19,16 @@ from routes.tasks import router as tasks_router
 # ==============================
 # Determine which frontend URLs are allowed to access the API.
 def get_cors_origins():
-    raw = os.getenv(
-        "FRONTEND_URL",
-        "http://localhost:5173,http://127.0.0.1:5173,http://localhost:5500,http://127.0.0.1:5500"
-    )
+    raw = os.getenv("FRONTEND_URL", "")
+    origins = [origin.strip() for origin in raw.split(",") if origin.strip()]
 
-    return [
-        origin.strip()
-        for origin in raw.split(",")
-        if origin.strip()
-    ]
+    if origins:
+        return origins
+
+    # If no frontend origin is configured, allow all origins for demo deployments.
+    # This prevents CORS failures when the frontend is deployed before the backend
+    # origin is known or when the frontend URL is not set in Render/Vercel.
+    return ["*"]
 
 
 # ==============================
@@ -56,10 +56,11 @@ app = FastAPI(
 # Middleware configuration
 # ==============================
 # Enable CORS for frontend access during development.
+cors_origins = get_cors_origins()
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=get_cors_origins(),
-    allow_credentials=True,
+    allow_origins=cors_origins,
+    allow_credentials=False if cors_origins == ["*"] else True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
