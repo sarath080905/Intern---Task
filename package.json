@@ -3,9 +3,9 @@
   "private": true,
   "version": "1.0.0",
   "scripts": {
-    "postinstall": "sh -c 'if [ -d \"task-manager/frontend\" ]; then cd task-manager/frontend && npm install; else echo \"no frontend to install\"; fi'",
-    "build": "sh -c 'if [ -d \"task-manager/frontend\" ]; then cd task-manager/frontend && npm run build; else echo \"no frontend to build\"; fi'",
-    "start": "sh -c 'if [ -d \"task-manager/frontend\" ]; then cd task-manager/frontend && npm run dev; else echo \"no frontend to start\"; fi'"
+    "postinstall": "node scripts/run-frontend.js install",
+    "build": "node scripts/run-frontend.js build",
+    "start": "node scripts/run-frontend.js preview"
   },
   "engines": {
     "node": ">=18"
