@@ -1,6 +1,6 @@
 /* ==============================
    Login Page Theme Styling
-   Modern Glassmorphism UI
+   Light and soft UI for ease of use
 ============================== */
 
 /* Full page background */
@@ -8,7 +8,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: "Poppins", sans-serif;
-  background: linear-gradient(135deg, #0f172a, #1e293b, #312e81);
+  background: linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
   min-height: 100vh;
   display: flex;
   justify-content: center;
@@ -18,25 +18,23 @@ body {
 /* Main login container */
 .container {
   width: 100%;
-  max-width: 400px;
-  padding: 40px;
+  max-width: 420px;
+  padding: 36px;
   border-radius: 24px;
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
   text-align: center;
-  animation: fadeIn 0.5s ease;
+  animation: fadeIn 0.4s ease;
 }
 
 /* Title */
 .container h2 {
-  color: #ffffff;
+  color: #0f172a;
   font-size: 2rem;
-  margin-bottom: 30px;
+  margin-bottom: 24px;
   font-weight: 700;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
 }
 
 /* Form */
@@ -52,23 +50,23 @@ form input {
   border: none;
   outline: none;
   border-radius: 14px;
-  background: rgba(255, 255, 255, 0.12);
-  color: #ffffff;
+  background: #f8fafc;
+  color: #0f172a;
   font-size: 1rem;
   transition: 0.3s ease;
-  border: 1px solid transparent;
+  border: 1px solid #d1d5db;
 }
 
 /* Placeholder */
 form input::placeholder {
-  color: rgba(255, 255, 255, 0.65);
+  color: rgba(15, 23, 42, 0.45);
 }
 
 /* Input focus */
 form input:focus {
-  border: 1px solid #8b5cf6;
-  background: rgba(255, 255, 255, 0.16);
-  box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+  border: 1px solid #6366f1;
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.16);
 }
 
 /* Button */
@@ -76,7 +74,7 @@ form button {
   padding: 14px;
   border: none;
   border-radius: 14px;
-  background: linear-gradient(135deg, #8b5cf6, #6366f1);
+  background: linear-gradient(135deg, #7c3aed, #4f46e5);
   color: white;
   font-size: 1rem;
   font-weight: 600;
@@ -100,7 +98,7 @@ form button:disabled {
 /* Error message */
 .error {
   margin-top: 16px;
-  color: #ff6b6b;
+  color: #c2410c;
   font-size: 0.95rem;
   font-weight: 500;
 }
@@ -108,20 +106,20 @@ form button:disabled {
 /* Register switch */
 .auth-switch {
   margin-top: 20px;
-  color: rgba(255, 255, 255, 0.8);
+  color: #475569;
   font-size: 0.95rem;
 }
 
 /* Register link */
 .auth-switch a {
-  color: #a78bfa;
+  color: #6366f1;
   text-decoration: none;
   font-weight: 600;
   transition: 0.3s;
 }
 
 .auth-switch a:hover {
-  color: #c4b5fd;
+  color: #4f46e5;
   text-decoration: underline;
 }
 
@@ -129,7 +127,7 @@ form button:disabled {
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(25px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;

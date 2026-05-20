@@ -1,41 +1,25 @@
-﻿# Render Deployment Guide
-
-This guide shows how to deploy the backend of the Task Manager app on Render and connect it to a frontend host like Vercel.
-
----
-
-## Why use Render?
-
-Render is a simple cloud platform for hosting web apps. It can build and run the backend automatically from your GitHub repository.
-
-This guide is written for a beginner and uses easy, step-by-step instructions.
-
----
+﻿# Deploy backend on Render
 
 ## Prerequisites
 
-Before you start, make sure you have:
-
-- A Render account: https://render.com
-- A GitHub repository with this project
-- A frontend deployment URL (for example from Vercel)
-
-> If you do not yet have a frontend deployed, you may use `http://localhost:5500` as a temporary value and update it later.
+- [Render](https://render.com) account (free tier works)
+- Project on **GitHub** (Render deploys from Git)
+- Your **Vercel frontend URL** (if already deployed) — or use a placeholder and update later
 
 ---
 
-## Step 1 — Push the project to GitHub
+## Step 1 — Push code to GitHub
 
-If your project is not already in GitHub, follow these commands from the project root:
+From the project folder:
 
 ```powershell
 cd "d:\Intern - Task\task-manager"
 git init
 git add .
-git commit -m "Initial task manager deployment"
+git commit -m "Task manager app"
 ```
 
-Create a repository on GitHub, then connect it:
+Create a new repository on GitHub, then:
 
 ```powershell
 git remote add origin https://github.com/YOUR_USERNAME/task-manager.git
@@ -45,141 +29,125 @@ git push -u origin main
 
 ---
 
-## Step 2 — Deploy the backend on Render
+## Step 2 — Create the web service on Render
 
-There are two options for deployment:
+### Option A — Blueprint (fastest)
 
-### Option A — Use Render Blueprint (recommended)
+1. [dashboard.render.com](https://dashboard.render.com) → **New** → **Blueprint**
+2. Connect GitHub → select your `task-manager` repo
+3. Render reads `render.yaml` at the repo root
+4. When asked, set **`FRONTEND_URL`** manually, e.g.:
+   ```
+   https://your-app.vercel.app
+   ```
+   (Or `http://localhost:5500` until Vercel is live)
+5. Click **Apply** → wait for deploy (~2–5 min)
 
-1. Open https://dashboard.render.com
-2. Click **New** → **Blueprint**
-3. Connect your GitHub account
-4. Choose the `task-manager` repository
-5. Verify the generated settings and continue
-6. When asked, enter the frontend URL:
-   - Example: `https://your-app.vercel.app`
-   - Or use `http://localhost:5500` temporarily
-7. Click **Apply** and wait for the build
+### Option B — Web Service (manual)
 
-Render will use the `render.yaml` configuration in your repository.
+1. **New** → **Web Service**
+2. Connect the same GitHub repo
+3. Settings:
 
-### Option B — Create a Web Service manually
+   | Field | Value |
+   |-------|--------|
+   | **Name** | `task-manager-api` |
+   | **Root Directory** | `backend` |
+   | **Runtime** | Python 3 |
+   | **Build Command** | `pip install -r requirements.txt` |
+   | **Start Command** | `uvicorn main:app --host 0.0.0.0 --port $PORT` |
+   | **Health Check Path** | `/health` |
 
-1. In Render, click **New** → **Web Service**
-2. Connect your GitHub repo
-3. Set these options:
-   - **Name:** `task-manager-api`
-   - **Root Directory:** `backend`
-   - **Runtime:** Python 3
-   - **Build Command:** `pip install -r requirements.txt`
-   - **Start Command:** `uvicorn main:app --host 0.0.0.0 --port $PORT`
-   - **Health Check Path:** `/health`
+4. **Environment** → add:
 
-4. Add environment variables:
-   - `SECRET_KEY` = a secure random string
-   - `DATABASE_URL` = `sqlite:///./task_manager.db`
-   - `FRONTEND_URL` = your frontend URL
-   - `ACCESS_TOKEN_EXPIRE_MINUTES` = `30`
+   | Key | Value |
+   |-----|--------|
+   | `SECRET_KEY` | Click **Generate** or paste a long random string |
+   | `DATABASE_URL` | `sqlite:///./task_manager.db` |
+   | `FRONTEND_URL` | `https://your-app.vercel.app` |
+   | `ACCESS_TOKEN_EXPIRE_MINUTES` | `30` |
 
-5. Click **Create Web Service**
-
----
-
-## Step 3 — Check the deployed API
-
-After deploy completes, test the API in your browser:
-
-- `https://YOUR-SERVICE.onrender.com/health` should return `{ "status": "ok" }`
-- `https://YOUR-SERVICE.onrender.com/docs` should open the FastAPI docs
-
-If these pages work, the backend is deployed successfully.
+5. **Create Web Service**
 
 ---
 
-## Step 4 — Connect the frontend
+## Step 3 — Verify the API
 
-If your frontend is hosted on Vercel or another static host, point it to the Render API.
+When deploy status is **Live**, open:
 
-### On Vercel
+| URL | Expected |
+|-----|----------|
+| `https://YOUR-SERVICE.onrender.com/health` | `{"status":"ok"}` |
+| `https://YOUR-SERVICE.onrender.com/docs` | Swagger UI |
 
-In Vercel project settings, add:
-
-- `API_BASE_URL` = `https://YOUR-SERVICE.onrender.com`
-
-Then redeploy the frontend.
-
-### On Render
-
-In your Render web service settings, update:
-
-- `FRONTEND_URL` = `https://your-app.vercel.app`
-
-Save the environment variables and let Render redeploy.
+Example URL shape: `https://task-manager-api.onrender.com`
 
 ---
 
-## Step 5 — Test the full app
+## Step 4 — Connect Vercel frontend
 
-Once both backend and frontend are deployed:
+In **Vercel** → Project → **Settings** → **Environment Variables**:
 
-1. Open your frontend site
-2. Register a new user
-3. Log in
-4. Create a task
-5. Refresh the page
+| Name | Value |
+|------|--------|
+| `API_BASE_URL` | `https://YOUR-SERVICE.onrender.com` |
 
-If the task appears and the app works, deployment is complete.
+**Redeploy** the Vercel project.
 
----
+In **Render** → your service → **Environment**:
 
-## Notes for free tier users
+| Name | Value |
+|------|--------|
+| `FRONTEND_URL` | `https://your-app.vercel.app` |
 
-| Topic | What to expect |
-|------|----------------|
-| Cold start | Free services sleep after inactivity. The first request may take longer. |
-| SQLite storage | Data may be lost when the service restarts or redeploys. Good for demos, not production. |
-| Production DB | For stable data, use PostgreSQL instead of SQLite. |
+**Save** → Render redeploys automatically.
 
 ---
 
-## Optional: Upgrade to PostgreSQL
+## Step 5 — Test end-to-end
 
-If you want more reliable data storage:
+1. Open your Vercel site
+2. **Register** a new account
+3. **Create** a task
+4. Refresh — task should still be there (until server redeploy on free SQLite; see below)
 
-1. Create a PostgreSQL database in Render
-2. Copy the external database URL
-3. Set `DATABASE_URL` in Render to that value
-4. Redeploy the backend
+---
 
-The app already supports PostgreSQL-style URLs.
+## Free tier notes
+
+| Topic | Detail |
+|-------|--------|
+| **Cold start** | Free services sleep after ~15 min idle; first request may take 30–60s |
+| **SQLite** | Data may reset when Render redeploys or restarts — OK for demos |
+| **Production DB** | Add Render **PostgreSQL**, set `DATABASE_URL`, redeploy (app supports `postgres://` URLs) |
+
+### Optional: PostgreSQL on Render
+
+1. **New** → **PostgreSQL** → create database
+2. Copy **External Database URL**
+3. On the web service, set `DATABASE_URL` to that URL
+4. Redeploy
 
 ---
 
 ## Troubleshooting
 
 | Issue | Fix |
-|------|-----|
-| Build fails | Make sure `Root Directory` is `backend` and Python version is supported. |
-| 502 error | Check service logs and verify the start command uses `$PORT`. |
-| CORS error | Ensure `FRONTEND_URL` exactly matches your frontend URL with `https://` and no trailing slash. |
-| Login/register fails on live app | Confirm `API_BASE_URL` is set correctly in the frontend host. |
-| Health endpoint fails | Use `/health` as the health check path. |
+|-------|-----|
+| Build fails | Root Directory must be `backend`; Python 3.11 |
+| 502 on start | Check logs; ensure start command uses `$PORT` |
+| CORS error from Vercel | `FRONTEND_URL` must match Vercel URL exactly (`https`, no trailing `/`) |
+| Register works locally but not live | Set `API_BASE_URL` on Vercel to Render URL and redeploy |
+| Health check fails | Path must be `/health` |
 
 ---
 
 ## Quick checklist
 
-- [ ] Code is pushed to GitHub
-- [ ] Render service is created
-- [ ] `/health` endpoint returns OK
-- [ ] Frontend URL is set in `FRONTEND_URL`
-- [ ] `API_BASE_URL` points to Render API
-- [ ] Frontend can register and create tasks
-
----
-
-## Helpful links
-
-- Render: https://render.com
-- FastAPI docs: https://fastapi.tiangolo.com/
-- Vercel: https://vercel.com
+- [ ] GitHub repo pushed
+- [ ] Render web service **Live**
+- [ ] `/health` returns OK
+- [ ] `SECRET_KEY` set (not empty)
+- [ ] `FRONTEND_URL` = Vercel URL
+- [ ] Vercel `API_BASE_URL` = Render URL
+- [ ] Register + create task works on live site

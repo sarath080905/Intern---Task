@@ -1,50 +1,78 @@
 /* ==============================
    Register Page
-   Matches login style for consistency
+   Light and gentle theme matching login
 ============================== */
-.register-page {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
 }
 
-.register-page .container {
+.container {
+  width: 100%;
   max-width: 440px;
+  margin: 60px auto;
+  padding: 36px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 24px;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
   text-align: center;
 }
 
-.register-page h2 {
+.container h2 {
   margin: 0 0 24px;
   font-size: 2rem;
   font-weight: 700;
-  color: #ffffff;
+  color: #0f172a;
   letter-spacing: 0.5px;
 }
 
-.register-page form {
+form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 18px;
 }
 
-.register-page input {
-  background: rgba(255, 255, 255, 0.12);
-  color: #fff;
-  transition: 0.25s ease;
+form input {
+  padding: 14px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 14px;
+  outline: none;
+  background: #f8fafc;
+  color: #0f172a;
+  font-size: 1rem;
+  transition: 0.3s ease;
 }
 
-.register-page input::placeholder {
-  color: rgba(255, 255, 255, 0.65);
+form input::placeholder {
+  color: rgba(15, 23, 42, 0.45);
 }
 
-.register-page input:focus {
-  border-color: var(--accent-1);
-  background: rgba(255, 255, 255, 0.16);
-  box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.18);
+form input:focus {
+  border-color: #6366f1;
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.16);
 }
 
-.register-page .container {
+form button {
+  padding: 14px;
+  border: none;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #7c3aed, #4f46e5);
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+form button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.35);
+}
+
+.container {
   animation: fadeInUp 0.5s ease;
 }

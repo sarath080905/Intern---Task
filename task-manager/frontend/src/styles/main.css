@@ -22,7 +22,7 @@ body {
 
 /* Page container style for centered content. */
 .container {
-  width: min(900px, 92%);
+  width: min(1220px, 98%);
   margin: 32px auto;
   background: #fff;
   padding: 20px;
@@ -56,9 +56,13 @@ button:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #111827;
-  color: #fff;
-  padding: 12px 20px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #0f172a;
+  padding: 14px 22px;
+  border-radius: 18px;
+  box-shadow: 0 10px 35px rgba(15, 23, 42, 0.08);
+  margin: 20px auto;
+  width: min(100%, 1100px);
 }
 
 .navbar nav {
@@ -68,13 +72,13 @@ button:hover {
 }
 
 .navbar a {
-  color: #fff;
+  color: #1e293b;
   text-decoration: none;
 }
 
 /* Danger button style for delete actions. */
 .btn-danger {
-  background: #dc2626;
+  background: #ef4444;
 }
 
 /* Dashboard statistics area. */

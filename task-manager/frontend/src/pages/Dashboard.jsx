@@ -7,7 +7,7 @@ import API from "../api/axios";
 import Navbar from "../components/Navbar";
 import TaskCard from "../components/TaskCard";
 import { useAuth } from "../context/AuthContext";
-import "./Dashboard.css"; 
+import "./PageStyles/Dashboard.css";
 
 function Dashboard() {
   const { logout } = useAuth();

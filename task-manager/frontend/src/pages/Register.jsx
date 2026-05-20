@@ -5,7 +5,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import API from "../api/axios";
-import "./register.css";
+import "./PageStyles/Register.css";
 
 function Register() {
   const [formData, setFormData] = useState({ username: "", email: "", password: "" });

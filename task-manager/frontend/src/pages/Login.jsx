@@ -6,7 +6,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import API from "../api/axios";
 import { useAuth } from "../context/AuthContext";
-import "./Login.css";
+import "./PageStyles/login.css";
 
 function Login() {
   const { login } = useAuth();
