@@ -86,19 +86,25 @@ Example URL shape: `https://task-manager-api.onrender.com`
 
 ## Step 4 — Connect Vercel frontend
 
+**Before you proceed:** You need the **URL** of your deployed Render service.
+- Example: `https://task-manager-api.onrender.com`
+- Find it on your Render service page under "Settings" → "URL"
+
 In **Vercel** → Project → **Settings** → **Environment Variables**:
 
 | Name | Value |
 |------|--------|
-| `API_BASE_URL` | `https://YOUR-SERVICE.onrender.com` |
+| `API_BASE_URL` | `https://task-manager-api.onrender.com` (replace with your Render URL) |
 
-**Redeploy** the Vercel project.
+**Save** and **Redeploy** the Vercel project (Deployments → Redeploy).
 
-In **Render** → your service → **Environment**:
+Wait for Vercel to finish deploying (~2 min).
+
+Then, in **Render** → your service → **Environment**:
 
 | Name | Value |
 |------|--------|
-| `FRONTEND_URL` | `https://your-app.vercel.app` |
+| `FRONTEND_URL` | `https://your-app.vercel.app` (replace with your Vercel URL) |
 
 **Save** → Render redeploys automatically.
 
