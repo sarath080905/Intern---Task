@@ -1,0 +1,13 @@
+{
+  "name": "intern-task-monorepo-root",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "postinstall": "cd frontend && npm install",
+    "build": "cd frontend && npm run build",
+    "start": "cd frontend && npm run dev"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
