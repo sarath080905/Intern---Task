@@ -112,6 +112,8 @@ Create a `.env` file in `backend/` or set these values in your environment.
 
 > The backend supports `postgres://` style URLs for PostgreSQL. SQLAlchemy converts this automatically.
 
+> The frontend uses `API_BASE_URL` in Vercel and `frontend/.env.example` for local dev.
+
 ---
 
 ## API Overview

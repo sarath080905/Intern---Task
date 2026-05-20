@@ -1,0 +1,25 @@
+# Ignore local environment files
+.env
+frontend/.env
+backend/.env
+
+# Node and build outputs
+node_modules/
+frontend/node_modules/
+frontend/dist/
+
+# Python virtualenv and caches
+backend/venv/
+backend/__pycache__/
+*.py[cod]
+
+# Database files
+*.db
+backend/task_manager.db
+backend/test_pytest.db
+backend/test_auth.db
+backend/test_tasks.db
+
+# Misc
+.vscode/
+.DS_Store

@@ -55,14 +55,14 @@ Deploy **backend** to Render or Railway, and **frontend** to Vercel.
 
 1. Import the GitHub repo in Vercel.
 2. Set **Root Directory** to `frontend`.
-3. Framework preset: **Other** (static site).
+3. Framework preset: **Vite** (or **Other** if Vercel does not detect it automatically).
 4. Add environment variable:
 
    | Name | Value |
    |------|--------|
    | `API_BASE_URL` | `https://your-api.onrender.com` (no trailing slash) |
 
-5. Deploy. Vercel runs `node scripts/generate-config.js` and writes `js/config.js`.
+5. Deploy. Vercel will build the frontend from the `frontend` directory.
 
 6. Copy your frontend URL, e.g. `https://task-manager.vercel.app`.
 
@@ -108,7 +108,7 @@ Add screenshots under `docs/screenshots/` and link them in README.
 | API calls go to localhost | Set `API_BASE_URL` on Vercel and redeploy frontend |
 | 401 on all requests | Check clock skew; verify token in DevTools → Application → localStorage |
 | DB empty after redeploy | Expected with free SQLite on Render — use PostgreSQL |
-| Build fails on Vercel | Ensure root directory is `frontend` and `scripts/generate-config.js` exists |
+| Build fails on Vercel | Ensure root directory is `frontend` and `API_BASE_URL` is configured correctly |
 
 ---
 
