@@ -1,0 +1,32 @@
+# ==============================
+# Docker Compose configuration
+# ==============================
+# Define backend and frontend services for local development.
+services:
+  api:
+    build: ./backend
+    container_name: task-manager-api
+    ports:
+      - "8000:8000"
+    environment:
+      SECRET_KEY: ${SECRET_KEY:-change-me-in-production}
+      ALGORITHM: ${ALGORITHM:-HS256}
+      ACCESS_TOKEN_EXPIRE_MINUTES: ${ACCESS_TOKEN_EXPIRE_MINUTES:-30}
+      DATABASE_URL: sqlite:////app/data/task_manager.db
+    volumes:
+      - api-data:/app/data
+    restart: unless-stopped
+
+  frontend:
+    image: nginx:alpine
+    container_name: task-manager-frontend
+    ports:
+      - "5500:80"
+    volumes:
+      - ./frontend:/usr/share/nginx/html:ro
+    depends_on:
+      - api
+    restart: unless-stopped
+
+volumes:
+  api-data:

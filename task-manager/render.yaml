@@ -1,0 +1,21 @@
+# Render Blueprint — place at repo root
+# Docs: https://render.com/docs/blueprint-spec
+services:
+  - type: web
+    name: task-manager-api
+    runtime: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11.0"
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        value: sqlite:///./task_manager.db
+      - key: FRONTEND_URL
+        sync: false
+      - key: ACCESS_TOKEN_EXPIRE_MINUTES
+        value: "30"

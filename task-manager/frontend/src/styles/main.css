@@ -1,0 +1,153 @@
+/* ==============================
+   Global styling
+   ==============================
+   Define base colors, fonts, and page background. */
+:root {
+  font-family: Arial, sans-serif;
+  color: #1f2937;
+  background: #f4f4f4;
+}
+
+/* Base box sizing for all elements. */
+* {
+  margin: 0;
+  padding: 0; 
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+/* Page container style for centered content. */
+.container {
+  width: min(900px, 92%);
+  margin: 32px auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+}
+
+/* Shared input and button styles. */
+input,
+button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+}
+
+button {
+  cursor: pointer;
+  background: #2563eb;
+  color: #fff;
+  border: none;
+}
+
+button:hover {
+  background: #1d4ed8;
+}
+
+/* Navigation bar layout and colors. */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #111827;
+  color: #fff;
+  padding: 12px 20px;
+}
+
+.navbar nav {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.navbar a {
+  color: #fff;
+  text-decoration: none;
+}
+
+/* Danger button style for delete actions. */
+.btn-danger {
+  background: #dc2626;
+}
+
+/* Dashboard statistics area. */
+.dashboard .stats {
+  margin: 16px 0;
+  display: flex;
+  gap: 16px;
+}
+
+/* Task grid layout. */
+.task-grid {
+  display: grid;
+  gap: 12px;
+}
+
+/* Individual task card style. */
+.task-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.task-card.completed h4 {
+  text-decoration: line-through;
+  color: #6b7280;
+}
+
+.task-actions {
+  min-width: 110px;
+}
+
+/* Feedback message styles. */
+.error {
+  color: #dc2626;
+  margin-top: 10px;
+}
+
+.success {
+  color: #059669;
+  margin-top: 10px;
+}
+
+.auth-switch {
+  margin-top: 12px;
+  color: #4b5563;
+}
+
+.auth-switch a {
+  color: #2563eb;
+  text-decoration: none;
+}
+
+.auth-switch a:hover {
+  text-decoration: underline;
+}
+
+/* Disabled button state. */
+button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Responsive layout adjustments. */
+@media (max-width: 640px) {
+  .navbar {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .task-card {
+    flex-direction: column;
+  }
+}

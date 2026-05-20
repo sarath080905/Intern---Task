@@ -1,0 +1,50 @@
+/* ==============================
+   Register Page
+   Matches login style for consistency
+============================== */
+.register-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.register-page .container {
+  max-width: 440px;
+  text-align: center;
+}
+
+.register-page h2 {
+  margin: 0 0 24px;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+}
+
+.register-page form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.register-page input {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  transition: 0.25s ease;
+}
+
+.register-page input::placeholder {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.register-page input:focus {
+  border-color: var(--accent-1);
+  background: rgba(255, 255, 255, 0.16);
+  box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.18);
+}
+
+.register-page .container {
+  animation: fadeInUp 0.5s ease;
+}
